@@ -65,38 +65,82 @@
       }
     }
   ],
-  "connections": [
-    [
-      "chat-with-frank",
-      "start-financial-check"
-    ],
-    [
-      "start-financial-check",
-      "load-payments"
-    ],
-    [
-      "load-payments",
-      "load-expenses"
-    ],
-    [
-      "load-expenses",
-      "load-plan"
-    ],
-    [
-      "load-plan",
-      "calculate-surplus"
-    ],
-    [
-      "calculate-surplus",
-      "update-plan"
-    ],
-    [
-      "calculate-surplus",
-      "log-notifications"
-    ],
-    [
-      "calculate-surplus",
-      "send-financial-alert"
-    ]
-  ]
+  "connections": {
+    "chat-with-frank": {
+      "main": [
+        [
+          {
+            "node": "start-financial-check",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "start-financial-check": {
+      "main": [
+        [
+          {
+            "node": "load-payments",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "load-payments": {
+      "main": [
+        [
+          {
+            "node": "load-expenses",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "load-expenses": {
+      "main": [
+        [
+          {
+            "node": "load-plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "load-plan": {
+      "main": [
+        [
+          {
+            "node": "calculate-surplus",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "calculate-surplus": {
+      "main": [
+        [
+          {
+            "node": "update-plan",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "log-notifications",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "send-financial-alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
 }
