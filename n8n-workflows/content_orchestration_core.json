@@ -143,239 +143,163 @@
     }
   ],
   "connections": {
-    "start-chat-with-aeya": {
-      "main": [
-        [
-          {
-            "node": "generate-aeya-script",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "generate-aeya-script": {
-      "main": [
-        [
-          {
-            "node": "run-ensemble-qc",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "run-ensemble-qc": {
-      "main": [
-        [
-          {
-            "node": "generate-script-preview",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "log-llm-review-sheet",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "generate-script-preview": {
-      "main": [
-        [
-          {
-            "node": "send-script-review-email",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "send-script-review-email": {
-      "main": [
-        [
-          {
-            "node": "wait-for-approval-response",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "approval-timeout-wait",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "log-notification-sheet",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "approval-timeout-wait": {
-      "main": [
-        [
-          {
-            "node": "send-escalation-email",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "wait-for-approval-response": {
-      "main": [
-        [
-          {
-            "node": "generate-kokora-script",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "generate-kokora-script": {
-      "main": [
-        [
-          {
-            "node": "check-video-mode",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "check-video-mode": {
-      "main": [
-        [
-          {
-            "node": "create-longform-video-wavespeed",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "create-shortform-video-wavespeed",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "send-video-approval-email": {
-      "main": [
-        [
-          {
-            "node": "wait-for-video-approval",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "log-notification-sheet",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "wait-for-video-approval": {
-      "main": [
-        [
-          {
-            "node": "update-episode-status-sheet",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "update-episode-status-sheet": {
-      "main": [
-        [
-          {
-            "node": "log-video-output-sheet",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "send-escalation-email": {
-      "main": [
-        [
-          {
-            "node": "log-notification-sheet",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "aeya-wandering-scholar-mode": {
-      "main": [
-        [
-          {
-            "node": "log-notification-sheet",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "create-longform-video-wavespeed": {
-      "main": [
-        [
-          {
-            "node": "wait-longform-render",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "create-shortform-video-wavespeed": {
-      "main": [
-        [
-          {
-            "node": "wait-shortform-render",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "wait-longform-render": {
-      "main": [
-        [
-          {
-            "node": "generate-video-preview",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "wait-shortform-render": {
-      "main": [
-        [
-          {
-            "node": "generate-video-preview",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "generate-video-preview": {
-      "main": [
-        [
-          {
-            "node": "send-video-approval-email",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    }
+    "start-chat-with-aeya": [
+      {
+        "node": "generate-aeya-script",
+        "type": "main",
+        "index": 0
+      }
+    ],
+    "generate-aeya-script": [
+      {
+        "node": "run-ensemble-qc",
+        "type": "main",
+        "index": 0
+      }
+    ],
+    "run-ensemble-qc": [
+      {
+        "node": "generate-script-preview",
+        "type": "main",
+        "index": 0
+      },
+      {
+        "node": "log-llm-review-sheet",
+        "type": "main",
+        "index": 0
+      }
+    ],
+    "generate-script-preview": [
+      {
+        "node": "send-script-review-email",
+        "type": "main",
+        "index": 0
+      }
+    ],
+    "send-script-review-email": [
+      {
+        "node": "wait-for-approval-response",
+        "type": "main",
+        "index": 0
+      },
+      {
+        "node": "approval-timeout-wait",
+        "type": "main",
+        "index": 0
+      },
+      {
+        "node": "log-notification-sheet",
+        "type": "main",
+        "index": 0
+      }
+    ],
+    "approval-timeout-wait": [
+      {
+        "node": "send-escalation-email",
+        "type": "main",
+        "index": 0
+      }
+    ],
+    "wait-for-approval-response": [
+      {
+        "node": "generate-kokora-script",
+        "type": "main",
+        "index": 0
+      }
+    ],
+    "generate-kokora-script": [
+      {
+        "node": "check-video-mode",
+        "type": "main",
+        "index": 0
+      }
+    ],
+    "check-video-mode": [
+      {
+        "node": "create-longform-video-wavespeed",
+        "type": "main",
+        "index": 0
+      },
+      {
+        "node": "create-shortform-video-wavespeed",
+        "type": "main",
+        "index": 0
+      }
+    ],
+    "send-video-approval-email": [
+      {
+        "node": "wait-for-video-approval",
+        "type": "main",
+        "index": 0
+      },
+      {
+        "node": "log-notification-sheet",
+        "type": "main",
+        "index": 0
+      }
+    ],
+    "wait-for-video-approval": [
+      {
+        "node": "update-episode-status-sheet",
+        "type": "main",
+        "index": 0
+      }
+    ],
+    "update-episode-status-sheet": [
+      {
+        "node": "log-video-output-sheet",
+        "type": "main",
+        "index": 0
+      }
+    ],
+    "send-escalation-email": [
+      {
+        "node": "log-notification-sheet",
+        "type": "main",
+        "index": 0
+      }
+    ],
+    "aeya-wandering-scholar-mode": [
+      {
+        "node": "log-notification-sheet",
+        "type": "main",
+        "index": 0
+      }
+    ],
+    "create-longform-video-wavespeed": [
+      {
+        "node": "wait-longform-render",
+        "type": "main",
+        "index": 0
+      }
+    ],
+    "create-shortform-video-wavespeed": [
+      {
+        "node": "wait-shortform-render",
+        "type": "main",
+        "index": 0
+      }
+    ],
+    "wait-longform-render": [
+      {
+        "node": "generate-video-preview",
+        "type": "main",
+        "index": 0
+      }
+    ],
+    "wait-shortform-render": [
+      {
+        "node": "generate-video-preview",
+        "type": "main",
+        "index": 0
+      }
+    ],
+    "generate-video-preview": [
+      {
+        "node": "send-video-approval-email",
+        "type": "main",
+        "index": 0
+      }
+    ]
   }
 }

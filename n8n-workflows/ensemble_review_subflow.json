@@ -55,38 +55,26 @@
     }
   ],
   "connections": {
-    "mistral-review": {
-      "main": [
-        [
-          {
-            "node": "aggregate-review-judgment",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "falcon-review": {
-      "main": [
-        [
-          {
-            "node": "aggregate-review-judgment",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "flan-t5-review": {
-      "main": [
-        [
-          {
-            "node": "aggregate-review-judgment",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    }
+    "mistral-review": [
+      {
+        "node": "aggregate-review-judgment",
+        "type": "main",
+        "index": 0
+      }
+    ],
+    "falcon-review": [
+      {
+        "node": "aggregate-review-judgment",
+        "type": "main",
+        "index": 0
+      }
+    ],
+    "flan-t5-review": [
+      {
+        "node": "aggregate-review-judgment",
+        "type": "main",
+        "index": 0
+      }
+    ]
   }
 }
