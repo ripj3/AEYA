@@ -1,0 +1,102 @@
+{
+  "name": "trigger-financial-upgrades-and-debt-paydown",
+  "nodes": [
+    {
+      "name": "chat-with-frank",
+      "type": "chatInput",
+      "parameters": {
+        "persona": "Frank",
+        "role": "financial and funding advisor",
+        "style": "encouraging, focused, keeps user on track"
+      }
+    },
+    {
+      "name": "start-financial-check",
+      "type": "scheduleTrigger",
+      "parameters": {}
+    },
+    {
+      "name": "load-payments",
+      "type": "googleSheetsRead",
+      "parameters": {
+        "sheet": "Payments_Log"
+      }
+    },
+    {
+      "name": "load-expenses",
+      "type": "googleSheetsRead",
+      "parameters": {
+        "sheet": "Expenses_Log"
+      }
+    },
+    {
+      "name": "load-plan",
+      "type": "googleSheetsRead",
+      "parameters": {
+        "sheet": "System_Financial_Plan"
+      }
+    },
+    {
+      "name": "calculate-surplus",
+      "type": "code",
+      "parameters": {
+        "script": "// Calculate net revenue, subtract expenses\nconst payments = $input.item.payments.reduce((acc, row) => acc + parseFloat(row.Amount), 0);\nconst expenses = $input.item.expenses.reduce((acc, row) => acc + parseFloat(row.Amount), 0);\nconst visaKickstartDone = $input.item.plan.VISA_Kickstart_Complete === 'TRUE';\nlet visaPayment = 0;\nlet quickbooksTrigger = false;\nlet lindyTrigger = false;\nlet devinTrigger = false;\nlet quickbooksViaVisa = false;\nlet visaKickstartNow = false;\nlet techContribution = payments * 0.15;\nif (!visaKickstartDone && payments - expenses >= 200) {\n  visaPayment = 200;\n  visaKickstartNow = true;\n} else {\n  visaPayment = payments * 0.2;\n}\nconst surplus = payments - expenses - visaPayment - techContribution;\nif (surplus >= 35 && parseFloat($input.item.plan.VISA_Remaining) >= 35) {\n  quickbooksTrigger = true;\n  quickbooksViaVisa = true;\n}\nif (surplus >= 200) {\n  lindyTrigger = true;\n}\nif (surplus >= 500) {\n  devinTrigger = true;\n}\nreturn [{\n  visaPayment,\n  techContribution,\n  surplus,\n  quickbooksTrigger,\n  quickbooksViaVisa,\n  lindyTrigger,\n  devinTrigger,\n  visaKickstartNow\n}];"
+      }
+    },
+    {
+      "name": "update-plan",
+      "type": "googleSheetsUpdate",
+      "parameters": {
+        "sheet": "System_Financial_Plan"
+      }
+    },
+    {
+      "name": "log-notifications",
+      "type": "googleSheetsAppend",
+      "parameters": {
+        "sheet": "Notification_Log"
+      }
+    },
+    {
+      "name": "send-financial-alert",
+      "type": "emailSend",
+      "parameters": {
+        "to": "tunesdotravel@gmail.com"
+      }
+    }
+  ],
+  "connections": [
+    [
+      "chat-with-frank",
+      "start-financial-check"
+    ],
+    [
+      "start-financial-check",
+      "load-payments"
+    ],
+    [
+      "load-payments",
+      "load-expenses"
+    ],
+    [
+      "load-expenses",
+      "load-plan"
+    ],
+    [
+      "load-plan",
+      "calculate-surplus"
+    ],
+    [
+      "calculate-surplus",
+      "update-plan"
+    ],
+    [
+      "calculate-surplus",
+      "log-notifications"
+    ],
+    [
+      "calculate-surplus",
+      "send-financial-alert"
+    ]
+  ]
+}
