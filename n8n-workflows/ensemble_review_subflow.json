@@ -7,9 +7,13 @@
       "parameters": {
         "url": "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2",
         "method": "POST",
-        "headers": { "Authorization": "Bearer {{HUGGINGFACE_API_KEY}}" },
+        "headers": {
+          "Authorization": "Bearer {{HUGGINGFACE_API_KEY}}"
+        },
         "body": "{ \"inputs\": \"{{ $json.script }}\" }",
-        "options": { "sendBodyAs": "json" }
+        "options": {
+          "sendBodyAs": "json"
+        }
       }
     },
     {
@@ -18,9 +22,13 @@
       "parameters": {
         "url": "https://api-inference.huggingface.co/models/tiiuae/falcon-7b-instruct",
         "method": "POST",
-        "headers": { "Authorization": "Bearer {{HUGGINGFACE_API_KEY}}" },
+        "headers": {
+          "Authorization": "Bearer {{HUGGINGFACE_API_KEY}}"
+        },
         "body": "{ \"inputs\": \"{{ $json.script }}\" }",
-        "options": { "sendBodyAs": "json" }
+        "options": {
+          "sendBodyAs": "json"
+        }
       }
     },
     {
@@ -29,9 +37,13 @@
       "parameters": {
         "url": "https://api-inference.huggingface.co/models/google/flan-t5-xl",
         "method": "POST",
-        "headers": { "Authorization": "Bearer {{HUGGINGFACE_API_KEY}}" },
+        "headers": {
+          "Authorization": "Bearer {{HUGGINGFACE_API_KEY}}"
+        },
         "body": "{ \"inputs\": \"{{ $json.script }}\" }",
-        "options": { "sendBodyAs": "json" }
+        "options": {
+          "sendBodyAs": "json"
+        }
       }
     },
     {
@@ -43,8 +55,17 @@
     }
   ],
   "connections": [
-    ["mistral-review", "aggregate-review-judgment"],
-    ["falcon-review", "aggregate-review-judgment"],
-    ["flan-t5-review", "aggregate-review-judgment"]
+    [
+      "mistral-review",
+      "aggregate-review-judgment"
+    ],
+    [
+      "falcon-review",
+      "aggregate-review-judgment"
+    ],
+    [
+      "flan-t5-review",
+      "aggregate-review-judgment"
+    ]
   ]
 }

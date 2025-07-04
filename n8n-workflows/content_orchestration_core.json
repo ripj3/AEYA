@@ -228,16 +228,16 @@
       "wait-shortform-render"
     ],
     [
-        "wait-longform-render",
-        "generate-video-preview"
+      "wait-longform-render",
+      "generate-video-preview"
     ],
     [
-        "wait-shortform-render",
-        "generate-video-preview"
+      "wait-shortform-render",
+      "generate-video-preview"
     ],
     [
-        "generate-video-preview",
-        "send-video-approval-email"
+      "generate-video-preview",
+      "send-video-approval-email"
     ]
   ]
 }
