@@ -1,45 +1,199 @@
 {
   "name": "content_orchestration_core",
   "nodes": [
-    { "name": "start-chat-with-aeya", "type": "chatInput", "parameters": {} },
-    { "name": "generate-aeya-script", "type": "aeyaGenerateNarrative", "parameters": {} },
-    { "name": "run-ensemble-qc", "type": "subflow", "parameters": { "workflow": "ensemble-review-subflow" } },
-    { "name": "send-script-review-email", "type": "emailSend", "parameters": { "to": "tunesdotravel@gmail.com" } },
-    { "name": "wait-for-approval-response", "type": "webhookWait", "parameters": {} },
-    { "name": "generate-kokora-script", "type": "formatNarration", "parameters": {} },
-    { "name": "check-video-mode", "type": "evaluateRouting", "parameters": {} },
-    { "name": "create-longform-video-lumia", "type": "longformRenderLumia", "parameters": {} },
-    { "name": "create-shortform-video-pika", "type": "shortformRenderPika", "parameters": {} },
-    { "name": "send-video-approval-email", "type": "emailSend", "parameters": { "to": "tunesdotravel@gmail.com" } },
-    { "name": "wait-for-video-approval", "type": "webhookWait", "parameters": {} },
-    { "name": "update-episode-status-sheet", "type": "googleSheetsUpdate", "parameters": { "sheet": "Episodes" } },
-    { "name": "log-video-output-sheet", "type": "googleSheetsAppend", "parameters": { "sheet": "Video_Log" } },
-    { "name": "log-llm-review-sheet", "type": "googleSheetsAppend", "parameters": { "sheet": "LLM_Review_Log" } },
-    { "name": "log-notification-sheet", "type": "googleSheetsAppend", "parameters": { "sheet": "Notification_Log" } },
-    { "name": "aeya-wandering-scholar-mode", "type": "generateResearchThemes", "parameters": {
-      "mode": "recursive",
-      "output_to": ["Episodes", "Notification_Log"],
-      "status": "Draft",
-      "title_prefix": "AUTO: "
-    }}
+    {
+      "name": "start-chat-with-aeya",
+      "type": "chatInput",
+      "parameters": {}
+    },
+    {
+      "name": "generate-aeya-script",
+      "type": "aeyaGenerateNarrative",
+      "parameters": {}
+    },
+    {
+      "name": "run-ensemble-qc",
+      "type": "subflow",
+      "parameters": {
+        "workflow": "ensemble-review-subflow"
+      }
+    },
+    {
+      "name": "send-script-review-email",
+      "type": "emailSend",
+      "parameters": {
+        "to": "tunesdotravel@gmail.com"
+      }
+    },
+    {
+      "name": "wait-for-approval-response",
+      "type": "webhookWait",
+      "parameters": {}
+    },
+    {
+      "name": "generate-kokora-script",
+      "type": "formatNarration",
+      "parameters": {}
+    },
+    {
+      "name": "check-video-mode",
+      "type": "evaluateRouting",
+      "parameters": {}
+    },
+    {
+      "name": "create-longform-video-wavespeed",
+      "type": "longformRenderWaveSpeedAI",
+      "parameters": {}
+    },
+    {
+      "name": "create-shortform-video-wavespeed",
+      "type": "shortformRenderWaveSpeedAI",
+      "parameters": {}
+    },
+    {
+      "name": "send-video-approval-email",
+      "type": "emailSend",
+      "parameters": {
+        "to": "tunesdotravel@gmail.com"
+      }
+    },
+    {
+      "name": "wait-for-video-approval",
+      "type": "webhookWait",
+      "parameters": {}
+    },
+    {
+      "name": "update-episode-status-sheet",
+      "type": "googleSheetsUpdate",
+      "parameters": {
+        "sheet": "Episodes"
+      }
+    },
+    {
+      "name": "log-video-output-sheet",
+      "type": "googleSheetsAppend",
+      "parameters": {
+        "sheet": "Video_Log"
+      }
+    },
+    {
+      "name": "log-llm-review-sheet",
+      "type": "googleSheetsAppend",
+      "parameters": {
+        "sheet": "LLM_Review_Log"
+      }
+    },
+    {
+      "name": "log-notification-sheet",
+      "type": "googleSheetsAppend",
+      "parameters": {
+        "sheet": "Notification_Log"
+      }
+    },
+    {
+      "name": "aeya-wandering-scholar-mode",
+      "type": "generateResearchThemes",
+      "parameters": {
+        "mode": "recursive",
+        "output_to": [
+          "Episodes",
+          "Notification_Log"
+        ],
+        "status": "Draft",
+        "title_prefix": "AUTO: "
+      }
+    },
+    {
+      "name": "wait-longform-render",
+      "type": "wait",
+      "parameters": {
+        "duration": "5m"
+      }
+    },
+    {
+      "name": "wait-shortform-render",
+      "type": "wait",
+      "parameters": {
+        "duration": "5m"
+      }
+    }
   ],
   "connections": [
-    ["start-chat-with-aeya", "generate-aeya-script"],
-    ["generate-aeya-script", "run-ensemble-qc"],
-    ["run-ensemble-qc", "send-script-review-email"],
-    ["send-script-review-email", "wait-for-approval-response"],
-    ["wait-for-approval-response", "generate-kokora-script"],
-    ["generate-kokora-script", "check-video-mode"],
-    ["check-video-mode", "create-longform-video-lumia"],
-    ["check-video-mode", "create-shortform-video-pika"],
-    ["create-longform-video-lumia", "send-video-approval-email"],
-    ["create-shortform-video-pika", "send-video-approval-email"],
-    ["send-video-approval-email", "wait-for-video-approval"],
-    ["wait-for-video-approval", "update-episode-status-sheet"],
-    ["update-episode-status-sheet", "log-video-output-sheet"],
-    ["run-ensemble-qc", "log-llm-review-sheet"],
-    ["send-script-review-email", "log-notification-sheet"],
-    ["send-video-approval-email", "log-notification-sheet"],
-    ["aeya-wandering-scholar-mode", "log-notification-sheet"]
+    [
+      "start-chat-with-aeya",
+      "generate-aeya-script"
+    ],
+    [
+      "generate-aeya-script",
+      "run-ensemble-qc"
+    ],
+    [
+      "run-ensemble-qc",
+      "send-script-review-email"
+    ],
+    [
+      "send-script-review-email",
+      "wait-for-approval-response"
+    ],
+    [
+      "wait-for-approval-response",
+      "generate-kokora-script"
+    ],
+    [
+      "generate-kokora-script",
+      "check-video-mode"
+    ],
+    [
+      "check-video-mode",
+      "create-longform-video-wavespeed"
+    ],
+    [
+      "check-video-mode",
+      "create-shortform-video-wavespeed"
+    ],
+    [
+      "send-video-approval-email",
+      "wait-for-video-approval"
+    ],
+    [
+      "wait-for-video-approval",
+      "update-episode-status-sheet"
+    ],
+    [
+      "update-episode-status-sheet",
+      "log-video-output-sheet"
+    ],
+    [
+      "run-ensemble-qc",
+      "log-llm-review-sheet"
+    ],
+    [
+      "send-script-review-email",
+      "log-notification-sheet"
+    ],
+    [
+      "send-video-approval-email",
+      "log-notification-sheet"
+    ],
+    [
+      "aeya-wandering-scholar-mode",
+      "log-notification-sheet"
+    ],
+    [
+      "create-longform-video-wavespeed",
+      "wait-longform-render"
+    ],
+    [
+      "create-shortform-video-wavespeed",
+      "wait-shortform-render"
+    ],
+    [
+      "wait-longform-render",
+      "send-video-approval-email"
+    ],
+    [
+      "wait-shortform-render",
+      "send-video-approval-email"
+    ]
   ]
 }
