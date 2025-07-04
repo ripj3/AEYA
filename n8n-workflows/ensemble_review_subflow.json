@@ -1,0 +1,50 @@
+{
+  "name": "ensemble-review-subflow",
+  "nodes": [
+    {
+      "name": "mistral-review",
+      "type": "httpRequest",
+      "parameters": {
+        "url": "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2",
+        "method": "POST",
+        "headers": { "Authorization": "Bearer {{HUGGINGFACE_API_KEY}}" },
+        "body": "{ \"inputs\": \"{{ $json.script }}\" }",
+        "options": { "sendBodyAs": "json" }
+      }
+    },
+    {
+      "name": "falcon-review",
+      "type": "httpRequest",
+      "parameters": {
+        "url": "https://api-inference.huggingface.co/models/tiiuae/falcon-7b-instruct",
+        "method": "POST",
+        "headers": { "Authorization": "Bearer {{HUGGINGFACE_API_KEY}}" },
+        "body": "{ \"inputs\": \"{{ $json.script }}\" }",
+        "options": { "sendBodyAs": "json" }
+      }
+    },
+    {
+      "name": "flan-t5-review",
+      "type": "httpRequest",
+      "parameters": {
+        "url": "https://api-inference.huggingface.co/models/google/flan-t5-xl",
+        "method": "POST",
+        "headers": { "Authorization": "Bearer {{HUGGINGFACE_API_KEY}}" },
+        "body": "{ \"inputs\": \"{{ $json.script }}\" }",
+        "options": { "sendBodyAs": "json" }
+      }
+    },
+    {
+      "name": "aggregate-review-judgment",
+      "type": "code",
+      "parameters": {
+        "script": "const results = [$json[\"mistral-review\"], $json[\"falcon-review\"], $json[\"flan-t5-review\"]];\n\nconst reviewerVotes = {};\nconst flaggedIssues = new Set();\nconst suggestions = [];\nlet confidenceSum = 0;\n\nresults.forEach((res, idx) => {\n  const vote = res.confidence || 0.7;\n  confidenceSum += vote;\n  reviewerVotes[[\"mistral\", \"falcon\", \"flan\"][idx]] = vote;\n  if (res.flags) res.flags.forEach(f => flaggedIssues.add(f));\n  if (res.suggestions) suggestions.push(...res.suggestions);\n});\n\nreturn [{\n  confidence_avg: confidenceSum / results.length,\n  risk_level: confidenceSum / results.length < 0.75 ? 'MEDIUM' : 'LOW',\n  flagged_issues: Array.from(flaggedIssues),\n  suggestions,\n  model_votes: reviewerVotes\n}];"
+      }
+    }
+  ],
+  "connections": [
+    ["mistral-review", "aggregate-review-judgment"],
+    ["falcon-review", "aggregate-review-judgment"],
+    ["flan-t5-review", "aggregate-review-judgment"]
+  ]
+}
