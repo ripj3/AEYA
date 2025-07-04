@@ -19,7 +19,26 @@
       }
     },
     {
+      "name": "generate-script-preview",
+      "type": "summarizeNarrative",
+      "parameters": {}
+    },
+    {
       "name": "send-script-review-email",
+      "type": "emailSend",
+      "parameters": {
+        "to": "tunesdotravel@gmail.com"
+      }
+    },
+    {
+      "name": "approval-timeout-wait",
+      "type": "wait",
+      "parameters": {
+        "duration": "1h"
+      }
+    },
+    {
+      "name": "send-escalation-email",
       "type": "emailSend",
       "parameters": {
         "to": "tunesdotravel@gmail.com"
@@ -116,6 +135,11 @@
       "parameters": {
         "duration": "5m"
       }
+    },
+    {
+      "name": "generate-video-preview",
+      "type": "videoPreview",
+      "parameters": {}
     }
   ],
   "connections": [
@@ -129,11 +153,23 @@
     ],
     [
       "run-ensemble-qc",
+      "generate-script-preview"
+    ],
+    [
+      "generate-script-preview",
       "send-script-review-email"
     ],
     [
       "send-script-review-email",
       "wait-for-approval-response"
+    ],
+    [
+      "send-script-review-email",
+      "approval-timeout-wait"
+    ],
+    [
+      "approval-timeout-wait",
+      "send-escalation-email"
     ],
     [
       "wait-for-approval-response",
@@ -172,6 +208,10 @@
       "log-notification-sheet"
     ],
     [
+      "send-escalation-email",
+      "log-notification-sheet"
+    ],
+    [
       "send-video-approval-email",
       "log-notification-sheet"
     ],
@@ -188,12 +228,16 @@
       "wait-shortform-render"
     ],
     [
-      "wait-longform-render",
-      "send-video-approval-email"
+        "wait-longform-render",
+        "generate-video-preview"
     ],
     [
-      "wait-shortform-render",
-      "send-video-approval-email"
+        "wait-shortform-render",
+        "generate-video-preview"
+    ],
+    [
+        "generate-video-preview",
+        "send-video-approval-email"
     ]
   ]
 }
