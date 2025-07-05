@@ -8,9 +8,7 @@ finance-related workflow for managing upgrades and debt paydown.
 ## Repository layout
 
 ```
-.
-├── convert_connections.py  # convert legacy connection objects
-├── fix_connections.py      # normalize n8n connection structures
+
 ├── n8n-workflows/          # exported workflow JSON files
 │   ├── content_orchestration_core.json
 │   ├── ensemble_review_subflow.json
