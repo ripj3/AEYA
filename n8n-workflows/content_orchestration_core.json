@@ -99,7 +99,7 @@
       "name": "log-llm-review-sheet",
       "type": "googleSheetsAppend",
       "parameters": {
-        "sheet": "LLM_Review_Log"
+        "sheet": "LLM Review"
       }
     },
     {
