@@ -20,25 +20,6 @@ finance-related workflow for managing upgrades and debt paydown.
 └── README.md
 ```
 
-### Helper scripts
-
-The Python utilities deal with the `connections` property of exported n8n
-workflows. Older exports or manual edits can produce inconsistent formats. The
-scripts rewrite the JSON so that every node has an object of the form
-`{"main": [[ {"node": "dest", "type": "main", "index": 0}, ... ]]}`.
-
-* **`convert_connections.py`** – handles simple cases where the connections are a
-  dictionary mapping node names to their `main` arrays. When it encounters a
-  nested list it flattens it and rewrites the file in place.
-* **`fix_connections.py`** – a more robust normalizer. It accepts connection
-  lists, single objects or partially formed dictionaries and converts them to the
-  structure n8n expects.
-
-Run either script with one or more workflow files as arguments:
-
-```bash
-python fix_connections.py path/to/workflow.json
-```
 
 ### n8n workflows
 
