@@ -1,59 +1,87 @@
-# AEYA
+# README.md — Tunes Do Travel Automation Stack
 
-This repository contains the n8n workflows and helper scripts used in the
-"Tunes Do Travel" AI pre-production pipeline. The project automates script
-generation, quality checks and video creation for the channel, and it includes a
-finance-related workflow for managing upgrades and debt paydown.
+## 🎶 Overview
+Tunes Do Travel is a modular, low-cost, automation-first creative system for exploring global music culture. Built for performance on the free-tier of **n8n**, it connects:
+- Aeya (AI researcher + narrator)
+- Frank (financial advisor agent)
+- Google Sheets (as database)
+- Stripe + Zapier (as income/event input)
+- Wavespeed.ai (video platform)
+- Kokora (narrative voice synthesis)
 
-## Repository layout
+---
 
-```
+## 🧩 Components
 
-├── n8n-workflows/          # exported workflow JSON files
-│   ├── content_orchestration_core.json
-│   ├── ensemble_review_subflow.json
-│   ├── trigger-financial-upgrades-and-debt-paydown-FINAL.json
-│   └── sheets/             # example spreadsheets referenced by workflows
-│       └── *.csv
-└── README.md
-```
+### 🧠 `content_orchestration_core.json`
+- Central workflow
+- Triggers: chat
+- Stages: research → script → QC → approval → Kokora → video (Pika or Lumia via Wavespeed.AI)
+- Writes to: `Episodes`, `Video_Log`, `Notification_Log`
+
+### 🤖 `ensemble-review-subflow.json`
+- LLM-based quality check
+- Uses Hugging Face API
+- Writes flagged issues + votes to `LLM_Review_Log`
+
+### 💸 `trigger-financial-upgrades-and-debt-paydown.json`
+- Chat with Frank → loads logs → evaluates:
+  - VISA debt paydown (-1500)
+  - Tech fund contribution (up to 4k)
+  - QuickBooks, Lindy, Devin triggers 
+- Writes to: `System_Financial_Plan`
+
+### 📊 Google Sheets
+Includes 6 synchronized tabs:
+- `Episodes`
+- `Video_Log`
+- `LLM_Review_Log`
+- `Notification_Log`
+- `Payments_Log`
+- `Expenses_Log`
+- `System_Financial_Plan`
+
+---
+
+## ⚙️ Setup
+- Follow `SETUP.md`
+- Import .json workflows into n8n
+- Use `.env` file to configure keys
+- All executions are under free-tier budget (< 5 workflows, 1000 runs/mo)
+
+---
+
+## 💬 Agents
+
+### Aeya
+- Creative orchestrator
+- Writes scripts, runs QC, routes videos
+- Sends approvals to tunesdotravel@gmail.com
+
+### Frank
+- Embedded in financial JSON
+- Monitors income, expenses, upgrades
+- Encouraging tone, but grounded in limits
 
 
-### n8n workflows
 
-The `n8n-workflows` directory contains JSON definitions that can be imported
-into an n8n instance.
+## 🚀 Goals
+- Discover and celebrate under-represented music cultures
+- Automate everything possible
+- Stay lean until scaling is justified
 
-* **`content_orchestration_core.json`** – main workflow that orchestrates
-  pre‑production. It accepts a chat input, generates a script, runs the
-  `ensemble-review-subflow` for quality control, emails previews for approval and
-  optionally renders videos using WaveSpeed AI. Episode status, LLM review logs
-  and notifications are appended to Google Sheets.
-* **`ensemble_review_subflow.json`** – called by the core workflow. It queries
-  three Hugging Face models (Mistral, Falcon and FLAN‑T5) and aggregates their
-  responses via a code node. Confidence scores are normalized and the overall
-  risk level drops to *MEDIUM* when the average is below `0.6`.
-* **`trigger-financial-upgrades-and-debt-paydown-FINAL.json`** – scheduled
-  financial assistant. It reads payment and expense sheets, calculates surplus
-  funds and determines whether to trigger QuickBooks, Lindy or Devin automation
-  based on the available balance. Notifications and plan updates are written back
-  to Google Sheets.
-* **`sheets/*.csv`** – placeholder spreadsheets referenced by the workflows.
-  These provide the column structure for the Episodes log, Expenses log and other
-  tracking files.
+---
 
-### Usage
+## 🛠️ Status
+- ✅ Sheets aligned
+- ✅ JSON workflows
+- ✅ Frank & Aeya chat interface working
+- ⏳ Awaiting API keys / deployment
 
-Import the JSON files into your n8n instance via the "Import from file" option.
-If the workflows fail to load due to malformed connections, run
-`fix_connections.py` on the JSON file and try again. The example CSV files can be
-uploaded to Google Sheets and connected through the appropriate credentials.
+---
 
-The workflows rely on environment variables such as `HUGGINGFACE_API_KEY` for
-calling the hosted models. Ensure these variables are configured within n8n
-before executing the flows.
+## 📩 Questions?
+Email: liz@lizmclellan.com  
+Site: https://lizmclellan.com
 
-## License
-
-No license information is included in this repository. All rights reserved by
-the original authors.
+Made with rhythm and recursion.
