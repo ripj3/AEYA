@@ -2,15 +2,6 @@
   "name": "trigger-financial-upgrades-and-debt-paydown",
   "nodes": [
     {
-      "name": "chat-with-frank",
-      "type": "chatInput",
-      "parameters": {
-        "persona": "Frank",
-        "role": "financial and funding advisor",
-        "style": "encouraging, focused, keeps user on track"
-      }
-    },
-    {
       "name": "start-financial-check",
       "type": "scheduleTrigger",
       "parameters": {}
@@ -66,17 +57,6 @@
     }
   ],
   "connections": {
-    "chat-with-frank": {
-      "main": [
-        [
-          {
-            "node": "start-financial-check",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "start-financial-check": {
       "main": [
         [
@@ -128,12 +108,24 @@
             "node": "update-plan",
             "type": "main",
             "index": 0
-          },
+          }
+        ]
+      ]
+    },
+    "update-plan": {
+      "main": [
+        [
           {
             "node": "log-notifications",
             "type": "main",
             "index": 0
-          },
+          }
+        ]
+      ]
+    },
+    "log-notifications": {
+      "main": [
+        [
           {
             "node": "send-financial-alert",
             "type": "main",

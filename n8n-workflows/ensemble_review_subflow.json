@@ -2,6 +2,11 @@
   "name": "ensemble-review-subflow",
   "nodes": [
     {
+      "name": "start",
+      "type": "start",
+      "parameters": {}
+    },
+    {
       "name": "mistral-review",
       "type": "httpRequest",
       "parameters": {
@@ -55,6 +60,27 @@
     }
   ],
   "connections": {
+    "start": {
+      "main": [
+        [
+          {
+            "node": "mistral-review",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "falcon-review",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "flan-t5-review",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "mistral-review": {
       "main": [
         [

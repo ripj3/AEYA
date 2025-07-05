@@ -253,7 +253,9 @@
             "node": "create-longform-video-wavespeed",
             "type": "main",
             "index": 0
-          },
+          }
+        ],
+        [
           {
             "node": "create-shortform-video-wavespeed",
             "type": "main",
